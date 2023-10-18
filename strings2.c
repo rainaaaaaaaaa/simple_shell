@@ -1,39 +1,6 @@
 #include "header.h"
 
 /**
- * strcspn - calculates the length of a string
- * @str: the string
- * @reject: input
- * Return: count
- */
-size_t strcspn(const char *str, const char *reject) {
-    size_t count = 0;
-    bool found = false;
-
-    while (*str) {
-        const char *reject_ptr = reject;
-        found = false;
-
-        while (*reject_ptr) {
-            if (*str == *reject_ptr) {
-                found = true;
-                break;
-            }
-            reject_ptr++;
-        }
-
-        if (found) {
-            break;
-        }
-
-        count++;
-        str++;
-    }
-
-    return (count);
-}
-
-/**
  * _cmpr - compare
  * @c: charater
  * @b: bytes
@@ -110,4 +77,27 @@ size_t length(char **ar)
 	while (ar[j])
 		j++;
 	return (++j);
+}
+
+/**
+ * _cp - copy a string
+ * @str: string
+ *
+ * Return: new string
+ */
+char *_cp(char *str)
+{
+	char *newstr;
+	unsigned int j;
+
+	if (!str)
+		return (NULL);
+
+	newstr = malloc(sizeof(char) * (_strlen(str) + 1));
+	if (!newstr)
+		perror("Can't allocate memory for newstr"), exit(1);
+	for (j = 0; str[j]; j++)
+		newstr[j] = str[j];
+	newstr[j] = '\0';
+	return (newstr);
 }

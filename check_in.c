@@ -77,14 +77,14 @@ int _atoi(char *m)
 }
 
 /**
- * _exit - exit status
+ * xexit - exit status
  * @cmnd: command
  * @args: arguments
  * @env: environment variables
  *
  * Return: 1
  */
-int _exit(char *cmnd, char **args, char ***env)
+int xexit(char *cmnd, char **args, char ***env)
 {
 	int stat;
 

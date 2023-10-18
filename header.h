@@ -15,36 +15,6 @@
 
 #define INPUT_SIZE 1024
 
-/*
-#define MAX_ALIAS_COUNT 50
-#define MAX_ALIAS_NAME 50
-#define MAX_ALIAS_VALUE 100
-
-extern char **environ;
-int exit_status;
-int last_command_status;
-
-typedef struct Alias {
-    char name[MAX_ALIAS_NAME];
-    char value[MAX_ALIAS_VALUE];
-} Alias;
-
-Alias aliases[MAX_ALIAS_COUNT];
-int alias_count;
-
-int find_alias(const char *alias_name);
-void list_all_aliases();
-void list_selected_aliases(const char *alias_names);
-void define_alias(const char *alias_name, const char *alias_value);
-char *replace_variables(const char *command);
-int execute_command(const char *command);
-int _strlen(char *s);
-char *_strcpy(char *dest, char *src);
-int _strcmp(char *s1, char *s2);
-int strncmp(const char *s1, const char *s2, size_t n);
-char *_strchr(char *s, char c);
-size_t strcspn(const char *str, const char *reject);*/
-
 /**
  * struct built_s - specify which builtin to execute
  * @cmmd: command
@@ -75,7 +45,7 @@ char *all(char *, char **);
 
 /* Builtins' functions */
 int _env(char *, char **, char ***);
-int _exit(char *, char **, char ***);
+int xexit(char *, char **, char ***);
 int _setenv(char *, char **, char ***);
 int _unsetenv(char *, char **, char ***);
 int _cd(char *, char **, char ***);
@@ -89,7 +59,7 @@ char **allocate(char **);
 char *nvar(char *, char *);
 char **dvar(char **, int);
 char *var(char **, char *);
-char *_define(char *);
+char *take(char *);
 char *interface(char **, char *);
 int _pwd(char **);
 int _oldpwd(char **, char *);
@@ -112,8 +82,8 @@ unsigned int _error(char *, char *, unsigned int);
 unsigned int _more(char *, char *, char, unsigned int);
 
 /*ADDED*/
-int _cmpr(char c, const char *b);
-char *_strtok(char *str, const char *d);
-char *handle_cmnt(char *buf)
+int _cmpr(char, const char *);
+char *_strtok(char *, const char *);
+char *handle_cmnt(char *)
 
 #endif

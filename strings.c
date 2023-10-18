@@ -49,43 +49,4 @@ int _strcmp(char *s1, char *s2)
 	return (*s1 - *s2);
 }
 
-/**
- * *_strchr - locates a character in a string
- * @s: the string
- * @c: the character
- * Return: a pointer to the first occurrence of the character c,
- * or NULL if the character is not found.
- */
-char *_strchr(char *s, char c)
-{
-	int p;
 
-	for (p = 0; s[p] >= '\0'; p++)
-	{
-	if (s[p] == c)
-	return (s + p);
-	}
-	return (NULL);
-}
-
-/**
- * strncmp - compare strings
- * @s1: first string
- * @s2: second string
- * @n: input
- * Return: integer
- */
-int strncmp(const char *s1, const char *s2, size_t n) {
-    while (n > 0) {
-        if (*s1 != *s2) {
-            return (*s1 - *s2);
-        }
-        if (*s1 == '\0') {
-            return 0;
-        }
-        s1++;
-        s2++;
-        n--;
-    }
-    return 0;
-}
