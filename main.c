@@ -1,66 +1,36 @@
 #include "header.h"
 
-int _strlen(char *s);
-size_t strcspn(const char *str, const char *reject);
-
-int exit_status = 0;
-int last_command_status = 0;
-
 /**
- * main - check the code
+ * main - Entry point
  * @argc: argument count
  * @argv: argument vector
- * Return: the specified exit status
+ * @env: environment variables
+ * Return: 0
  */
-int main(int argc, char *argv[])
+int main(__attribute__((unused))int argc, char **argv[], char **env)
 {
-	FILE *file;
-	char *command;
-	char line[MAX_INPUT_SIZE];
-	char input[MAX_INPUT_SIZE];
-	int len, prev_status, operator_index;
+	char *cmd, **args, **env_v;
+	int j;
 
-    if (argc == 2) {
-        file = fopen(argv[1], "r");
-        if (file == NULL) {
-            perror("File open failed");
-            return (1);
-        }
+	env_v = handle_cpy(env);
 
-        while (fgets(line, sizeof(line), file)) {
-            len = strlen(line);
-            if (line[len - 1] == '\n') {
-                line[len - 1] = '\0';
-            }
-            execute_command(line);
-        }
+	is_error(argv[0], NULL, NULL, NULL);
 
-        fclose(file);
-    } else {
+	while (1)
+	{
+		if (isatty(STDIN_FILENO))
+		{
+			write(STDOUT_FILENO, "$ ", 2);
 
-        while (1) {
-            printf("#cisfun$ ");
-            if (fgets(input, MAX_INPUT_SIZE, stdin) == NULL) {
-                break;
-            }
-            input[strcspn(input, "\n")] = '\0';
-            command = strtok(input, "&&||");
-            prev_status = 0;
-            while (command != NULL) {
-                if (prev_status == 0) {
-                    operator_index = strcspn(command, "&&||");
-                    if (strcmp(command + operator_index, "&&") == 0) {
-                        prev_status = execute_command(command);
-                    } else if (strcmp(command + operator_index, "||") == 0) {
-                        prev_status = execute_command(command) ? 0 : 1;
-                    } else {
-                        prev_status = execute_command(command);
-                    }
-                }
-                command = command + strlen(command) + 1;
-            }
-        }
-    }
-
-    return (exit_status);
+		cmd = r_cmd(env_v);
+		args = r_arg(cmd, env_v);
+		j = exe_cmd(cmd, args, &env_v, argv[0]);
+		if (cmd)
+			free(cmd);
+		if (args)
+			free(args);
+		}
+	}
+	free_std(env_v);
+	return (0);
 }

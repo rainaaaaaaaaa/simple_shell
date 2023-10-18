@@ -34,47 +34,80 @@ size_t strcspn(const char *str, const char *reject) {
 }
 
 /**
- * is_del - compare a character to a set of bytes
- * @c: given char
- * @del: set of bytes
+ * _cmpr - compare
+ * @c: charater
+ * @b: bytes
  *
- * Return: 1 (found a match) | 0 (not a match)
+ * Return: 1 if found a match, 0 otherwise
  */
-int is_del(char c, const char *del)
+int _cmpr(char c, const char *b)
 {
-	int i;
+	int j;
 
-	for (i = 0; del[i]; i++)
-		if (c == del[i])
+	for (j = 0; b[j]; j++)
+	{
+		if (c == b[j])
 			return (1);
+	}
 	return (0);
 }
 
 /**
- * _strtok - break string into multiple tokens
- * @s: given string
- * @del: delimeter
- * Description: _strtok function breaks a string into a sequence of zero or
- * more nonempty tokens
+ * _strtok - break strings
+ * @str: string
+ * @d: delimeter
  *
- * Return: pointer to next token | NULL if there is no more tokens
+ * Return: pointer to next token,NULL if otherwise
  */
-char *_strtok(char *s, const char *del)
+char *_strtok(char *str, const char *d)
 {
-	static char *t;
-	char *tok;
+	static char *c;
+	char *token;
 
-	if (s)
-		t = s;
-	while (*t && is_del(*t, del))
-		*t = '\0', t++;
-	tok = t;
-	if (!(*tok))
+	if (str)
+		c = str;
+	while (*c && _cmpr(*c, d))
+		*c = '\0', c++;
+	token = c;
+	if (!(*token))
 		return (NULL);
-	while (*t && !is_del(*t, del))
-		t++;
+	while (*c && !_cmpr(*c, d))
+		c++;
 
-	if (*t)
-		*t = '\0', t++;
-	return (tok);
+	if (*c)
+		*c = '\0', c++;
+	return (token);
+}
+
+/**
+ * handle_cmnt - Handle comments
+ * @buf: buffer
+ * Return: buf
+ */
+char *handle_cmnt(char *buf)
+{
+	unsigned int j;
+
+	for (j = 0; buf[j]; j++)
+		if (buf[j] == '#')
+			break;
+	for (; buf[j]; j++)
+		buf[j] = '\0';
+	return (buf);
+}
+
+/**
+ * length - get length
+ * @ar: array
+ *
+ * Return: length
+ */
+size_t length(char **ar)
+{
+	size_t j;
+
+	j = 0;
+	while (ar[j])
+		j++;
+	return (++j);
 }
