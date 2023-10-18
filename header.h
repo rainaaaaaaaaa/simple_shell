@@ -72,7 +72,7 @@ char *_strcpy(char *, char *);
 int _atoi(char *);
 size_t length(char **);
 int is_like(char *, char *);
-char *_copy(char *);
+char *_cp(char *);
 
 /* Display error functions */
 void is_error(char *, char *, char *, char *);
