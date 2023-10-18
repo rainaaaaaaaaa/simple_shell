@@ -13,7 +13,7 @@ int find_alias(const char *alias_name)
 
 void list_all_aliases()
 {
-	int i;
+	int i, alias_count = 0;
     for (i = 0; i < alias_count; i++) {
         printf("%s='%s'\n", aliases[i].name, aliases[i].value);
     }

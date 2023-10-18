@@ -18,8 +18,8 @@
 #define MAX_ALIAS_VALUE 100
 
 extern char **environ;
-static int exit_status = 0;
-static int last_command_status = 0;
+int exit_status;
+int last_command_status;
 
 typedef struct Alias {
     char name[MAX_ALIAS_NAME];
@@ -27,7 +27,7 @@ typedef struct Alias {
 } Alias;
 
 Alias aliases[MAX_ALIAS_COUNT];
-int alias_count = 0;
+int alias_count;
 
 int find_alias(const char *alias_name);
 void list_all_aliases();
