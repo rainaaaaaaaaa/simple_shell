@@ -34,6 +34,23 @@ size_t strcspn(const char *str, const char *reject) {
 }
 
 /**
+ * is_del - compare a character to a set of bytes
+ * @c: given char
+ * @del: set of bytes
+ *
+ * Return: 1 (found a match) | 0 (not a match)
+ */
+int is_del(char c, const char *del)
+{
+	int i;
+
+	for (i = 0; del[i]; i++)
+		if (c == del[i])
+			return (1);
+	return (0);
+}
+
+/**
  * _strtok - break string into multiple tokens
  * @s: given string
  * @del: delimeter

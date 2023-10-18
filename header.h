@@ -41,6 +41,7 @@ int _strcmp(char *s1, char *s2);
 int strncmp(const char *s1, const char *s2, size_t n);
 char *_strchr(char *s, char c);
 size_t strcspn(const char *str, const char *reject);
+int is_del(char c, const char *del);
 char *_strtok(char *s, const char *del);
 
 #endif
