@@ -1,22 +1,6 @@
 #include "header.h"
 
 /**
- * *strchr - string characters
- * @str: the string
- * @n: input
- * Return: NULL
- */
-char *strchr(const char *str, int c) {
-    while (*str != '\0') {
-        if (*str == c) {
-            return ((char *)str);
-        }
-        str++;
-    }
-    return (NULL);
-}
-
-/**
  * strcspn - calculates the length of a string
  * @str: the string
  * @reject: input
@@ -47,4 +31,33 @@ size_t strcspn(const char *str, const char *reject) {
     }
 
     return (count);
+}
+
+/**
+ * _strtok - break string into multiple tokens
+ * @s: given string
+ * @del: delimeter
+ * Description: _strtok function breaks a string into a sequence of zero or
+ * more nonempty tokens
+ *
+ * Return: pointer to next token | NULL if there is no more tokens
+ */
+char *_strtok(char *s, const char *del)
+{
+	static char *t;
+	char *tok;
+
+	if (s)
+		t = s;
+	while (*t && is_del(*t, del))
+		*t = '\0', t++;
+	tok = t;
+	if (!(*tok))
+		return (NULL);
+	while (*t && !is_del(*t, del))
+		t++;
+
+	if (*t)
+		*t = '\0', t++;
+	return (tok);
 }

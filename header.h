@@ -36,8 +36,11 @@ void define_alias(const char *alias_name, const char *alias_value);
 char *replace_variables(const char *command);
 int execute_command(const char *command);
 int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
 int strncmp(const char *s1, const char *s2, size_t n);
-char *strchr(const char *str, int c);
+char *_strchr(char *s, char c);
 size_t strcspn(const char *str, const char *reject);
+char *_strtok(char *s, const char *del);
 
 #endif
