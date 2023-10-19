@@ -39,20 +39,27 @@ char **r_arg(char *buf, __attribute__((unused))char **env)
 {
 	char **args;
 	char *token;
-	const char *d;
-	int m;
+	const char *d = "\t\n ";
+	int m = 0;
 
 	args = malloc(sizeof(char *) * (INPUT_SIZE));
 	if (!args)
-		perror("Failed to allocate memory for args"), exit(1);
+	{
+		perror("Failed to allocate memory for args");
+		exit(1);
+	}
 
-	d = "\t\n ";
+	if (!buf)
+	{
+		args[0] = NULL;
+		return (args);
+	}
+
 	token = _strtok(buf, d);
-	m = 0;
 	while (token)
 	{
 		args[m++] = token;
-		token = _strtok(0, d);
+		token = _strtok(NULL, d);
 	}
 	for (; m < INPUT_SIZE; m++)
 		args[m] = NULL;
@@ -90,7 +97,10 @@ int exe_cmd(char *cmnd, char **args, char ***env, char *exe)
 	odd = args[0];
 	cmd = all(args[0], *env);
 	if (!cmd)
-		is_error(NULL, args[0], "not found", NULL), j = 1;
+	{
+		is_error(exe, args[0], "not found", NULL);
+		j = 1;
+	}
 	else
 	{
 		args[0] = cmd;

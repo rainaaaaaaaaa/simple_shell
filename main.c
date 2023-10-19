@@ -7,32 +7,36 @@
  * @env: environment variables
  * Return: 0
  */
-int main(__attribute__((unused))int argc, char **argv, char **env)
+int main(__attribute__((unused))int ac, __attribute__((unused))char **av, char **env)
 {
-	char *cmd, **args, **env_v;
-	int j;
+    char *buf = NULL;
+    size_t bufsize = 0;
+    char **args;
+    ssize_t characters;
 
-	env_v = handle_cpy(env), j = 1;
-
-	is_error(argv[0], NULL, NULL, NULL);
-
-	while (j)
-	{
-		if (isatty(STDIN_FILENO))
-		{
-			write(STDOUT_FILENO, "#cisfun$ ", 9);
-
-		cmd = r_cmd(env_v);
-		args = r_arg(cmd, env_v);
-		j = exe_cmd(cmd, args, &env_v, argv[0]);
-		if (cmd)
-			free(cmd);
-		if (args)
-			free(args);
-		}
-	}
-	free_std(env_v);
-	return (0);
+    while (1)
+    {
+        write(STDOUT_FILENO, "#cisfun$ ", 9);
+        characters = getline(&buf, &bufsize, stdin);
+        if (characters == -1)
+        {
+            free(buf);
+            if (isatty(STDIN_FILENO))
+                write(STDOUT_FILENO, "\n", 1);
+            exit(0);
+        }
+        if (characters > 0 && buf[0] != '\n')
+        {
+            args = r_arg(buf, env);
+            if (!exe_cmd(args[0], args, &env, NULL))
+                perror("Command execution failed");
+            free(args);
+        }
+        free(buf);
+        buf = NULL;
+        bufsize = 0;
+    }
+    return (0);
 }
 
 /**
