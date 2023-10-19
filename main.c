@@ -20,7 +20,7 @@ int main(__attribute__((unused))int argc, char **argv, char **env)
 	{
 		if (isatty(STDIN_FILENO))
 		{
-			write(STDOUT_FILENO, "$ ", 2);
+			write(STDOUT_FILENO, "#cisfun$ ", 9);
 
 		cmd = r_cmd(env_v);
 		args = r_arg(cmd, env_v);
