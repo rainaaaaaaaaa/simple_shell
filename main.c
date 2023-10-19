@@ -7,16 +7,16 @@
  * @env: environment variables
  * Return: 0
  */
-int main(__attribute__((unused))int argc, char **argv[], char **env)
+int main(__attribute__((unused))int argc, char **argv, char **env)
 {
 	char *cmd, **args, **env_v;
 	int j;
 
-	env_v = handle_cpy(env);
+	env_v = handle_cpy(env), j = 1;
 
 	is_error(argv[0], NULL, NULL, NULL);
 
-	while (1)
+	while (j)
 	{
 		if (isatty(STDIN_FILENO))
 		{
@@ -36,14 +36,14 @@ int main(__attribute__((unused))int argc, char **argv[], char **env)
 }
 
 /**
- * cd - changes dectory
+ * _cd - changes dectory
  * @cmnd: entered command
  * @arg: arguments
  * @env: environment variables
  *
  * Return: always 1
  */
-int cd(__attribute__((unused))char *cmnd, char **arg, char ***env)
+int _cd(__attribute__((unused))char *cmnd, char **arg, char ***env)
 {
 	char *d, *r;
 	char odd[100];
@@ -54,14 +54,14 @@ int cd(__attribute__((unused))char *cmnd, char **arg, char ***env)
 	else if (arg && arg[0] && !_strcmp(arg[1], "-") && !arg[2])
 		d = interface(*env, "OLDPWD");
 	else
-		d = cp(arg[1]);
+		d = _cp(arg[1]);
 
 	i = 100, r = getcwd(odd, i);
 	if (!r)
 		perror("Can't get current working dectory");
 	if (!d)
 		is_error(NULL, arg[0], "can't cd to OLDPWD", NULL);
-	else if (chd(d) == -1)
+	else if (chdir(d) == -1)
 		is_error(NULL, arg[0], "can't cd to ", d);
 	else
 		_pwd(*env), _oldpwd(*env, odd);

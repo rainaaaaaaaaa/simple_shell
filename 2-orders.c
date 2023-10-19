@@ -98,13 +98,13 @@ char *define_path(char *d, char *x)
 	if (!d || !x)
 		perror("empty arg to define_path()"), exit(1);
 
-	size = _strlen(dir) + _strlen(x) + 2;
+	s = _strlen(d) + _strlen(x) + 2;
 	buf = malloc(sizeof(char) * s);
 	if (!buf)
 		perror("Can't allocate memory for buf"), exit(1);
 
 	for (n = 0; d[n]; n++)
-		buffer[n] = d[n];
+		buf[n] = d[n];
 	buf[n++] = '/';
 	for (m = 0; x[m]; m++)
 		buf[n++] = x[m];

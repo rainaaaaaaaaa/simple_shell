@@ -13,7 +13,7 @@ char **avar(char **env, char *n, char *v)
 	char *var, **n_env;
 	unsigned int j;
 
-	n_env = alloc_space(env);
+	n_env = allocate(env);
 	if (!n_env)
 		perror("Can't allocate space for n_env"), exit(1);
 
@@ -50,7 +50,7 @@ char *cvar(char *v, char **env, int indx)
 		mvar[i] = n[i];
 	mvar[i++] = '=';
 	for (m = 0; v[m]; m++)
-		mvar[m++] = v[m];
+		mvar[i++] = v[m];
 	mvar[i] = '\0';
 
 	free(n);
@@ -100,13 +100,13 @@ char *nvar(char *n, char *v)
 	if (!var)
 		return (NULL);
 
-	for (i = 0; name[i]; i++)
-		var[i] = name[i];
+	for (i = 0; n[i]; i++)
+		var[i] = n[i];
 
 	var[i++] = '=';
 
-	for (m = 0; value[m]; m++)
-		var[i++] = value[m];
+	for (m = 0; v[m]; m++)
+		var[i++] = v[m];
 
 	var[i++] = '\0';
 

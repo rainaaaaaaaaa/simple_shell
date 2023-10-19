@@ -85,7 +85,7 @@ int exe_cmd(char *cmnd, char **args, char ***env, char *exe)
 
 	fct = check(args[0]);
 	if (fct)
-		return (fct(cmd, args, env));
+		return (fct(cmnd, args, env));
 
 	odd = args[0];
 	cmd = all(args[0], *env);
@@ -136,32 +136,32 @@ int _exe(char **args, char **env, char *exe)
  * handle_cpy - handle copy
  * @env: environment variables
  *
- * Return: cp
+ * Return: cpy
  */
 char **handle_cpy(char **env)
 {
-	char **cp;
+	char **cpy;
 	unsigned int j, siz;
 
 	if (!env)
 		return (NULL);
 
-	cp = malloc(sizeof(char *) * length(env));
-	if (!cp)
-		perror("Can't allocate memory for cp"), exit(1);
+	cpy = malloc(sizeof(char *) * length(env));
+	if (!cpy)
+		perror("Can't allocate memory for cpy"), exit(1);
 	j = 0;
 	while (env[j])
 	{
 		siz = _strlen(env[j]);
-		copy[j] = malloc(sizeof(char) * (++siz));
-		if (!cp[j])
+		cpy[j] = malloc(sizeof(char) * (++siz));
+		if (!cpy[j])
 		{
-			free_std(cp);
-			perror("Can't allocate memory for cp"), exit(1);
+			free_std(cpy);
+			perror("Can't allocate memory for cpy"), exit(1);
 		}
-		cp[j] = _strcpy(cp[j], env[j]);
+		cpy[j] = _strcpy(cpy[j], env[j]);
 		j++;
 	}
-	copy[j] = NULL;
-	return (cp);
+	cpy[j] = NULL;
+	return (cpy);
 }

@@ -34,7 +34,7 @@ char *var(char **env, char *v)
 {
 	unsigned int j;
 
-	for (i = 0; env[j]; j++)
+	for (j = 0; env[j]; j++)
 	{
 		if (is_like(env[j], v))
 			return (env[j]);

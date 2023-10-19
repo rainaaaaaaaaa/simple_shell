@@ -9,11 +9,11 @@
 int (*check(char *cmnd))(char *, char **, char ***)
 {
 	built_t list[] = {
-		{"env", print_env},
-		{"exit", perform_exit},
-		{"setenv", set_env},
-		{"unsetenv", unset_env},
-		{"cd", cd},
+		{"env", _env},
+		{"exit", xexit},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
+		{"cd", _cd},
 		{NULL, NULL}
 	};
 	int j;
