@@ -18,7 +18,7 @@ int main(int argc, char **args)
 	while (1)
 	{
 		if (isatty(0) && argc == 1)
-			write(STDOUT_FILENO, "$ ", 2);
+			write(STDOUT_FILENO, "#cisfun$ ", 9);
 		if (argc == 1 && _getline1(&input) <= 0)
 		{
 			free(input);
